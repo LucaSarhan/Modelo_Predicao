@@ -15,11 +15,14 @@ from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 import jwt
-import streamlit as st
+import subprocess
+from time import sleep
 
-users = {
-    "teste": "teste123",
-}
+
+users = [
+    {"id": 1, "username": "teste", "password": "teste123"}
+]
+
 
 def verify_user(username, password):
     if username not in users:
@@ -44,13 +47,13 @@ def verify_token(token):
         return None
 
 
-db_conn = psycopg2.connect(
-    dbname="postgres",
-    user="postgres",
-    password="postgres",
-    host="localhost",
-    port="5432"
-)
+# db_conn = psycopg2.connect(
+#     dbname="postgres",
+#     user="postgres",
+#     password="postgres",
+#     host="localhost",
+#     port="5432"
+# )
 
 class InputModel(BaseModel):
     data : datetime
@@ -118,6 +121,20 @@ model = load_model("minha_api")
 @app.get("/")
 async def get_html(request: Request):
     return templates.TemplateResponse("index.html", {"request": request, "title": "index"})
+
+@app.post("/login")
+async def login(username: str = Form(...), password: str = Form(...)):
+    if verify_user(username, password):
+        token = generate_token(username)
+        return {"token": token}
+    else:
+        raise HTTPException(status_code=401, detail="Authentication failed")
+
+@app.route("/dashboard")
+async def dashboard(request: Request):
+    subprocess.run(["streamlit", "run", "dashboard.py"])
+    sleep(5)
+    return dashboard
 
 # Define predict function
 @app.post("/predict", response_model=OutputModel)
