@@ -17,19 +17,16 @@ from fastapi.staticfiles import StaticFiles
 import jwt
 import subprocess
 from time import sleep
-
+import oi
 
 users = [
-    {"id": 1, "username": "teste", "password": "teste123"}
-]
-
+    {"username": "teste", "password": "teste123"}
+    ]
 
 def verify_user(username, password):
-    if username not in users:
-        return False
-    if users[username] != password:
-        return False
-    return True
+    for user in users:
+        if user["username"] == username and user["password"] == password:
+            return True
 
 secret_key = "SecretCode"
 
@@ -45,15 +42,6 @@ def verify_token(token):
         return username
     except:
         return None
-
-
-# db_conn = psycopg2.connect(
-#     dbname="postgres",
-#     user="postgres",
-#     password="postgres",
-#     host="localhost",
-#     port="5432"
-# )
 
 class InputModel(BaseModel):
     data : datetime
@@ -122,19 +110,24 @@ model = load_model("minha_api")
 async def get_html(request: Request):
     return templates.TemplateResponse("index.html", {"request": request, "title": "index"})
 
+class Credentials(BaseModel):
+    username: str
+    password: str
+
 @app.post("/login")
-async def login(username: str = Form(...), password: str = Form(...)):
-    if verify_user(username, password):
-        token = generate_token(username)
+async def login(credentials: Credentials):
+    if verify_user(credentials.username, credentials.password):
+        payload = credentials.dict()
+        token = generate_token(payload)
         return {"token": token}
     else:
         raise HTTPException(status_code=401, detail="Authentication failed")
 
 @app.route("/dashboard")
 async def dashboard(request: Request):
-    subprocess.run(["streamlit", "run", "dashboard.py"])
+    subprocess.run(["streamlit", "run", "oi.py"])
     sleep(5)
-    return dashboard
+    return oi
 
 # Define predict function
 @app.post("/predict", response_model=OutputModel)
