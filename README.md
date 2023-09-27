@@ -22,6 +22,31 @@ When the user clicks the "Predict" button, the application sends a POST request 
 
 # Backend
 
+The backend is a FastAPI application that provides two endpoints:
+
+/login: This endpoint allows users to authenticate with the application. The endpoint accepts a JSON object containing the following fields:
+username: The username of the user.
+password: The password of the user.
+The endpoint returns a JSON object containing the following field:
+
+token: A JSON Web Token (JWT) that is used to authenticate the user with the application.
+
+/predict: This endpoint allows users to make predictions about the probability of an accident occurring. The endpoint accepts a JSON object containing the following fields:
+
+date: The date of the prediction, in the format YYYY-MM-DD.
+dist: The distance to be traveled, in kilometers.
+vehicle: The type of vehicle, such as moto or carro.
+path: The road to be traveled, such as Via Brasil or Autopista Regis Bittencourt.
+local: The city where the prediction is being made, such as SP or RJ.
+The endpoint returns a JSON object containing the following field:
+
+prediction: The predicted probability of an accident occurring.
+The backend code is implemented in the minha_api directory. The main file in this directory is app.py. This file defines the two endpoints described above.
+
+The backend code uses a machine learning model to make predictions about the probability of an accident occurring. The model is trained on a dataset of historical accident data.
+
+The backend code also uses a JWT authentication scheme to authenticate users. When a user successfully logs in, the application returns a JWT to the user. The user can then use this JWT to authenticate with other protected endpoints on the application.
+
 # Docker
 
 # Nuvem AWS
