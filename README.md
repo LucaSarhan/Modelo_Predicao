@@ -14,7 +14,7 @@ O colab faz a etapa de ETL dos dados para resultar em um modelo funcional.
 
 # Nuvem AWS
 
-Prerequisitos: ter uma instancia ec2 rodando na aws
+Após ter criada a instancia no EC2, foi necesário criar 2 regras de entrada, uma para cada porta que estou usando(8000 e 8501). Ambas as regras são do tipo TCP customizada com qualquer local ipv4. Finalizado isto rodei os seguintes comandos no seu terminal:
 
 Intalação das bases na AWS:
 ```
