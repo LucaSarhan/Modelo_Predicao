@@ -1,7 +1,0 @@
-fastapi
-pydantic
-pandas
-numpy
-pycaret
-unidecode
-uvicorn

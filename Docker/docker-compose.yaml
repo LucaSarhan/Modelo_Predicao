@@ -1,0 +1,21 @@
+version: '3.1'
+services:   
+  ft:
+    build:
+      context: ./fastapi
+      dockerfile: Dockerfile
+    restart: always
+    container_name: ft
+    ports:
+      - "8000:8000"
+
+  st:
+    build:
+      context: ./streamlit
+      dockerfile: Dockerfile
+    restart: always
+    container_name: st
+    ports:
+      - "8501:8501"
+    depends_on:
+      - ft
