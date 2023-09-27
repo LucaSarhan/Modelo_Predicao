@@ -2,14 +2,14 @@
 
 Prerequisitos: ter uma instancia ec2 rodando na aws
 
-Intalação das bases:
+Intalação das bases na AWS:
 ```
 sudo apt update
 sudo apt upgrade
 sudo apt install python3 python3-pip -y
 ```
 
-Instalação do Docker:
+Instalação do Docker na AWS:
 ```
 # Add Docker's official GPG key:
 sudo apt-get update
@@ -27,7 +27,7 @@ sudo apt-get update
 sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 ```
 
-Clonar o Github:
+Clonar o Github na AWS:
 ```
 git clone https://github.com/LucaSarhan/Modelo_Predicao.git
 cd Modelo_Predicao/Docker
