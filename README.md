@@ -8,6 +8,16 @@ O colab faz a etapa de ETL dos dados para resultar em um modelo funcional.
 
 # Frontend
 
+The frontend of the code is a Streamlit application that allows users to interact with the FastAPI service to make predictions. The application has a simple interface where users can enter the following information:
+
+- Date
+- Distance
+- Vehicle
+- Path
+- City
+
+When the user clicks the "Predict" button, the application sends a POST request to the /predict endpoint on the FastAPI service. The application then displays the predicted probability of an accident occurring.
+
 # Backend
 
 # Docker
