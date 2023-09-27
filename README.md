@@ -8,6 +8,8 @@ O colab faz a etapa de ETL dos dados para resultar em um modelo funcional.
 
 # Frontend
 
+The login page is a HTML file that allows users to authenticate with the FastAPI service. The page has a simple interface where users can enter their username and password. When the user clicks the "Login" button, the page sends a POST request to the /login endpoint on the FastAPI service.
+
 The frontend of the code is a Streamlit application that allows users to interact with the FastAPI service to make predictions. The application has a simple interface where users can enter the following information:
 
 - Date
