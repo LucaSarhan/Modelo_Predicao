@@ -1,5 +1,17 @@
 Aqui está o link do video da minha [aplicação funciona](https://drive.google.com/file/d/1ZPoNSJUghJRKqL874aQGkZijAN0KskEF/view?usp=sharing)l:
 
+# Google Colab
+
+O colab faz a etapa de ETL dos dados para resultar em um modelo funcional.
+
+[Link do meu colab](https://colab.research.google.com/drive/14lBdUNejKqsT8Vb8utNjR1Nbpsqdx9gG#scrollTo=xSIX0g0qHE26)
+
+# Frontend
+
+# Backend
+
+# Docker
+
 # Nuvem AWS
 
 Prerequisitos: ter uma instancia ec2 rodando na aws
