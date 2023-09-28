@@ -106,6 +106,52 @@ Both Dockerfiles also start the application when the Docker image is run.
 
 The two Dockerfiles are used to build Docker images that can be used to deploy the FastAPI and Streamlit applications to a production environment.
 
+The Docker Compose file is located in the root directory of the project. The file is as follows:
+
+```
+version: '3.1'
+services:   
+  ft:
+    build:
+      context: ./fastapi
+      dockerfile: Dockerfile
+    restart: always
+    container_name: ft
+    ports:
+      - "8000:8000"
+
+  st:
+    build:
+      context: ./streamlit
+      dockerfile: Dockerfile
+    restart: always
+    container_name: st
+    ports:
+      - "8501:8501"
+    depends_on:
+      - ft
+```
+This Docker Compose file defines two services:
+
+ft: This service runs the FastAPI application.
+st: This service runs the Streamlit application.
+The ft service is built from the Dockerfile located in the fastapi directory. The st service is built from the Dockerfile located in the streamlit directory.
+
+Both services are restarted automatically when they fail.
+
+The ft service is exposed on port 8000. The st service is exposed on port 8501.
+
+The st service depends on the ft service. This means that the st service will not start until the ft service has started.
+
+To deploy the FastAPI and Streamlit applications to a production environment, you can use the following command:
+
+```
+docker-compose up -d
+```
+
+This command will start the two services and make them accessible on the ports specified in the Docker Compose file.
+
+The Docker Compose file is a convenient way to deploy and manage multiple Docker containers. It allows you to define all of the services in your application in a single file. Docker Compose also provides a number of features that make it easy to manage your application, such as automatic restart and dependency management.
 # Nuvem AWS
 
 Após ter criada a instancia no EC2, foi necesário criar 2 regras de entrada, uma para cada porta que estou usando(8000 e 8501). Ambas as regras são do tipo TCP customizada com qualquer local ipv4. Finalizado isto rodei os seguintes comandos no seu terminal:
