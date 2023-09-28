@@ -49,6 +49,63 @@ The backend code also uses a JWT authentication scheme to authenticate users. Wh
 
 # Docker
 
+The two Dockerfiles are located in the following directories:
+
+- fastapi/Dockerfile
+- streamlit/Dockerfile
+
+The Dockerfile for the FastAPI application is as follows:
+
+```
+FROM python:3.9-slim
+
+WORKDIR /ft
+
+RUN pip install --upgrade pip
+
+COPY . .
+
+RUN apt-get update && apt-get install -y libgomp1
+
+RUN pip install --no-cache-dir --upgrade -r requirements.txt
+
+CMD ["uvicorn", "minha_api:app", "--host", "0.0.0.0", "--port", "8000"]
+```
+This Dockerfile builds a Docker image that contains the FastAPI application. The image also includes all of the necessary dependencies, such as Python and the required Python packages.
+
+The Dockerfile for the Streamlit application is as follows:
+
+```
+FROM python:3.9-slim
+
+WORKDIR /st
+
+RUN pip install --upgrade pip
+
+COPY . .
+
+RUN pip install --no-cache-dir --upgrade -r requirements.txt
+
+CMD ["python", "-m", "streamlit", "run", "dashboard.py", "--server.port", "8501", "--server.address", "0.0.0.0"]
+```
+
+This Dockerfile builds a Docker image that contains the Streamlit application. The image also includes all of the necessary dependencies, such as Python and the required Python packages.
+
+Both Dockerfiles use the same base image: python:3.9-slim. This is a lightweight Python image that contains only the essential Python packages.
+
+Both Dockerfiles also copy the contents of the current directory into the Docker image. This ensures that the Docker image contains all of the code and data that is needed to run the application.
+
+The Dockerfile for the FastAPI application installs the following dependencies:
+
+- libgomp1: This library is required to run the FastAPI application.
+- requirements.txt: This file contains a list of all of the Python packages that are required to run the FastAPI application.
+The Dockerfile for the Streamlit application installs the following dependencies:
+
+- requirements.txt: This file contains a list of all of the Python packages that are required to run the Streamlit application.
+Both Dockerfiles also start the application when the Docker image is run.
+
+The two Dockerfiles are used to build Docker images that can be used to deploy the FastAPI and Streamlit applications to a production environment.
+
 # Nuvem AWS
 
 Após ter criada a instancia no EC2, foi necesário criar 2 regras de entrada, uma para cada porta que estou usando(8000 e 8501). Ambas as regras são do tipo TCP customizada com qualquer local ipv4. Finalizado isto rodei os seguintes comandos no seu terminal:
