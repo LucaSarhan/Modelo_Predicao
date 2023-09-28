@@ -157,6 +157,14 @@ The Docker Compose file is a convenient way to deploy and manage multiple Docker
 
 [Link da minha imagem do streamlit](https://hub.docker.com/repository/docker/lucagiberti/streamlit/general)
 
+Para baixar as imagens segue os dois comandos:
+```
+docker pull lucagiberti/streamlit
+```
+```
+docker pull lucagiberti/fastapi
+```
+
 # Nuvem AWS
 
 Após ter criada a instancia no EC2, foi necesário criar 2 regras de entrada, uma para cada porta que estou usando(8000 e 8501). Ambas as regras são do tipo TCP customizada com qualquer local ipv4. Finalizado isto rodei os seguintes comandos no seu terminal:
