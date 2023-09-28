@@ -8,53 +8,58 @@ O colab faz a etapa de ETL dos dados para resultar em um modelo funcional.
 
 # Frontend
 
-The login page is a HTML file that allows users to authenticate with the FastAPI service. The page has a simple interface where users can enter their username and password. When the user clicks the "Login" button, the page sends a POST request to the /login endpoint on the FastAPI service.
 
-The frontend of the code is a Streamlit application that allows users to interact with the FastAPI service to make predictions. The application has a simple interface where users can enter the following information:
+A página de login é um arquivo HTML que permite que os usuários autentiquem-se com o serviço da FastAPI. A página tem uma interface simples onde os usuários podem inserir seu nome de usuário e senha. Quando o usuário clica no botão "Entrar", a página envia uma solicitação POST para o endpoint /login no serviço FastAPI.
 
-- Date
-- Distance
-- Vehicle
-- Path
-- City
+A interface do front-end do código é um aplicativo Streamlit que permite que os usuários interajam com o serviço FastAPI para fazer previsões. O aplicativo tem uma interface simples onde os usuários podem inserir as seguintes informações:
 
-When the user clicks the "Predict" button, the application sends a POST request to the /predict endpoint on the FastAPI service. The application then displays the predicted probability of an accident occurring.
+- Data
+- Distância
+- Veículo
+- Rota
+- Cidade
+  
+Quando o usuário clica no botão "Prever", o aplicativo envia uma solicitação POST para o endpoint /predict no serviço da FastAPI. O aplicativo então exibe a probabilidade prevista de um acidente ocorrer.
 
 # Backend
 
-The backend is a FastAPI application that provides two endpoints:
+A parte de trás é um aplicativo FastAPI que fornece dois endpoints:
 
-/login: This endpoint allows users to authenticate with the application. The endpoint accepts a JSON object containing the following fields:
-username: The username of the user.
-password: The password of the user.
-The endpoint returns a JSON object containing the following field:
+/login: Este endpoint permite que os usuários se autentiquem no aplicativo. O endpoint aceita um objeto JSON contendo os seguintes campos:
 
-token: A JSON Web Token (JWT) that is used to authenticate the user with the application.
+username: O nome de usuário do usuário.
+password: A senha do usuário.
 
-/predict: This endpoint allows users to make predictions about the probability of an accident occurring. The endpoint accepts a JSON object containing the following fields:
+O endpoint retorna um objeto JSON contendo o seguinte campo:
 
-date: The date of the prediction, in the format YYYY-MM-DD.
-dist: The distance to be traveled, in kilometers.
-vehicle: The type of vehicle, such as moto or carro.
-path: The road to be traveled, such as Via Brasil or Autopista Regis Bittencourt.
-local: The city where the prediction is being made, such as SP or RJ.
-The endpoint returns a JSON object containing the following field:
+token: Um JSON Web token (JWT) usado para autenticar o usuário no aplicativo.
 
-prediction: The predicted probability of an accident occurring.
-The backend code is implemented in the minha_api directory. The main file in this directory is app.py. This file defines the two endpoints described above.
+/predict: Este endpoint permite que os usuários façam previsões sobre a probabilidade de um acidente ocorrer. O endpoint aceita um objeto JSON contendo os seguintes campos:
 
-The backend code uses a machine learning model to make predictions about the probability of an accident occurring. The model is trained on a dataset of historical accident data.
+date: A data da previsão, no formato AAAA-MM-DD.
+dist: A distância a ser percorrida, em quilômetros.
+vehicle: O tipo de veículo, como moto ou carro.
+path: A estrada a ser percorrida, como Via Brasil ou Autopista Régis Bittencourt.
+local: A cidade onde a previsão está sendo feita, como SP ou RJ.
 
-The backend code also uses a JWT authentication scheme to authenticate users. When a user successfully logs in, the application returns a JWT to the user. The user can then use this JWT to authenticate with other protected endpoints on the application.
+O endpoint retorna um objeto JSON contendo o seguinte campo:
+
+prediction: A probabilidade prevista de um acidente ocorrer.
+
+O código de backend é implementado no diretório minha_api. O arquivo principal neste diretório é app.py. Este arquivo define os dois endpoints descritos acima.
+
+O código de back-end usa um modelo de machine learning para fazer previsões sobre a probabilidade de um acidente ocorrer. O modelo é treinado em um conjunto de dados de acidentes históricos.
+
+O código de backend também usa um esquema de autenticação JWT para autenticar usuários. Quando um usuário faz login com sucesso, o aplicativo retorna um JWT para o usuário. O usuário pode então usar este JWT para se autenticar em outros endpoints protegidos no aplicativo.
 
 # Docker
 
-The two Dockerfiles are located in the following directories:
+Os dois Dockerfiles estão localizados nos seguintes diretórios:
 
 - fastapi/Dockerfile
 - streamlit/Dockerfile
 
-The Dockerfile for the FastAPI application is as follows:
+O Dockerfile para aplicação FastAPI segue:
 
 ```
 FROM python:3.9-slim
@@ -71,9 +76,9 @@ RUN pip install --no-cache-dir --upgrade -r requirements.txt
 
 CMD ["uvicorn", "minha_api:app", "--host", "0.0.0.0", "--port", "8000"]
 ```
-This Dockerfile builds a Docker image that contains the FastAPI application. The image also includes all of the necessary dependencies, such as Python and the required Python packages.
+Este Dockerfile constrói uma imagem Docker que contém o aplicativo FastAPI. A imagem também inclui todas as dependências necessárias, como Python e os pacotes Python necessários.
 
-The Dockerfile for the Streamlit application is as follows:
+O Dockerfile para aplicação Streamlit segue:
 
 ```
 FROM python:3.9-slim
@@ -89,24 +94,24 @@ RUN pip install --no-cache-dir --upgrade -r requirements.txt
 CMD ["python", "-m", "streamlit", "run", "dashboard.py", "--server.port", "8501", "--server.address", "0.0.0.0"]
 ```
 
-This Dockerfile builds a Docker image that contains the Streamlit application. The image also includes all of the necessary dependencies, such as Python and the required Python packages.
+Este Dockerfile constrói uma imagem Docker que contém o aplicativo Streamlit. A imagem também inclui todas as dependências necessárias, como Python e os pacotes Python necessários.
 
-Both Dockerfiles use the same base image: python:3.9-slim. This is a lightweight Python image that contains only the essential Python packages.
+Ambos os Dockerfiles usam a mesma imagem base: python:3.9-slim. Esta é uma imagem Python leve que contém apenas os pacotes Python essenciais.
 
-Both Dockerfiles also copy the contents of the current directory into the Docker image. This ensures that the Docker image contains all of the code and data that is needed to run the application.
+Ambos os Dockerfiles também copiam o conteúdo do diretório atual para a imagem Docker. Isso garante que a imagem Docker contenha todo o código e dados necessários para executar o aplicativo.
 
-The Dockerfile for the FastAPI application installs the following dependencies:
+O Dockerfile para o aplicativo FastAPI instala as seguintes dependências:
 
-- libgomp1: This library is required to run the FastAPI application.
-- requirements.txt: This file contains a list of all of the Python packages that are required to run the FastAPI application.
-The Dockerfile for the Streamlit application installs the following dependencies:
+- libgomp1: Esta biblioteca é necessária para executar o aplicativo FastAPI.
+- requirements.txt: Este arquivo contém uma lista de todos os pacotes Python necessários para executar o aplicativo FastAPI.
+O Dockerfile para o aplicativo Streamlit instala as seguintes dependências:
 
-- requirements.txt: This file contains a list of all of the Python packages that are required to run the Streamlit application.
-Both Dockerfiles also start the application when the Docker image is run.
+- requirements.txt: Este arquivo contém uma lista de todos os pacotes Python necessários para executar o aplicativo Streamlit.
+Ambos os Dockerfiles também iniciam o aplicativo quando a imagem Docker é executada.
 
-The two Dockerfiles are used to build Docker images that can be used to deploy the FastAPI and Streamlit applications to a production environment.
+Os dois Dockerfiles são usadas para construir imagens Docker que podem ser usadas para implantar os aplicativos FastAPI e Streamlit em um ambiente de produção.
 
-The Docker Compose file is located in the root directory of the project. The file is as follows:
+O arquivo Docker Compose está localizado no diretório raiz do projeto. O arquivo é o seguinte:
 
 ```
 version: '3.1'
@@ -131,27 +136,32 @@ services:
     depends_on:
       - ft
 ```
-This Docker Compose file defines two services:
+Este arquivo Docker Compose define dois serviços:
 
-ft: This service runs the FastAPI application.
-st: This service runs the Streamlit application.
-The ft service is built from the Dockerfile located in the fastapi directory. The st service is built from the Dockerfile located in the streamlit directory.
+ft: Este serviço executa o aplicativo FastAPI.
+st: Este serviço executa o aplicativo Streamlit.
 
-Both services are restarted automatically when they fail.
+O serviço ft é construído a partir do Dockerfile localizado no diretório fastapi. 
+O serviço st é construído a partir do Dockerfile localizado no diretório streamlit.
 
-The ft service is exposed on port 8000. The st service is exposed on port 8501.
+Ambos os serviços são reiniciados automaticamente quando falham.
 
-The st service depends on the ft service. This means that the st service will not start until the ft service has started.
+O serviço ft é exposto na porta 8000. 
+O serviço st é exposto na porta 8501.
 
-To deploy the FastAPI and Streamlit applications to a production environment, you can use the following command:
+O serviço st depende do serviço ft. Isso significa que o serviço st não iniciará até que o serviço ft tenha iniciado.
+
+Para implantar os aplicativos FastAPI e Streamlit em um ambiente de produção, você pode usar o seguinte comando:
 
 ```
 docker-compose up -d
 ```
 
-This command will start the two services and make them accessible on the ports specified in the Docker Compose file.
+Este comando iniciará os dois serviços e os tornará acessíveis nas portas especificadas no arquivo Docker Compose.
 
-The Docker Compose file is a convenient way to deploy and manage multiple Docker containers. It allows you to define all of the services in your application in a single file. Docker Compose also provides a number of features that make it easy to manage your application, such as automatic restart and dependency management.
+O arquivo Docker Compose é uma maneira conveniente de implantar e gerenciar vários contêineres Docker. Ele permite que você defina todos os serviços em seu aplicativo em um único arquivo. O Docker Compose também fornece uma série de recursos que facilitam o gerenciamento de seu aplicativo, como reinicialização automática e gerenciamento de dependências.
+
+Em resumo, o Docker Compose é uma ferramenta poderosa que pode ajudá-lo a simplificar o processo de implantação e gerenciamento de aplicativos Docker.
 
 [Link da minha imagem do FastAPI](https://hub.docker.com/repository/docker/lucagiberti/fastapi/general)
 
@@ -167,7 +177,7 @@ docker pull lucagiberti/fastapi
 
 # Nuvem AWS
 
-Após ter criada a instancia no EC2, foi necesário criar 2 regras de entrada, uma para cada porta que estou usando(8000 e 8501). Ambas as regras são do tipo TCP customizada com qualquer local ipv4. Finalizado isto rodei os seguintes comandos no seu terminal:
+Após ter criada a instancia no EC2, foi necesário criar 2 regras de entrada, uma para cada porta que estou usando (8000 e 8501). Ambas as regras são do tipo TCP customizadas com qualquer local ipv4. Finalizado isto rodei os seguintes comandos no terminal do EC2:
 
 Intalação das bases na AWS:
 ```
