@@ -197,3 +197,8 @@ Clonar o Github na AWS:
 git clone https://github.com/LucaSarhan/Modelo_Predicao.git
 cd Modelo_Predicao/Docker
 ```
+
+Para rodar a aplicação na nuvem segue:
+```
+sudo docker compose up
+```
