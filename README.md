@@ -4,7 +4,7 @@ Aqui está o link do video da minha [aplicação funciona](https://drive.google.
 
 O colab faz a etapa de ETL dos dados para resultar em um modelo funcional.
 
-[Link do meu colab](https://colab.research.google.com/drive/14lBdUNejKqsT8Vb8utNjR1Nbpsqdx9gG#scrollTo=xSIX0g0qHE26)
+[Link do colab](https://colab.research.google.com/drive/1e1aKMYGFzCI1GfSeQKWBT_rmxtwRe1H4?usp=sharing)
 
 # Frontend
 
