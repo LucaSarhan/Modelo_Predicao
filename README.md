@@ -152,6 +152,11 @@ docker-compose up -d
 This command will start the two services and make them accessible on the ports specified in the Docker Compose file.
 
 The Docker Compose file is a convenient way to deploy and manage multiple Docker containers. It allows you to define all of the services in your application in a single file. Docker Compose also provides a number of features that make it easy to manage your application, such as automatic restart and dependency management.
+
+[Link da minha imagem do FastAPI](https://hub.docker.com/repository/docker/lucagiberti/fastapi/general)
+
+[Link da minha imagem do streamlit](https://hub.docker.com/repository/docker/lucagiberti/streamlit/general)
+
 # Nuvem AWS
 
 Após ter criada a instancia no EC2, foi necesário criar 2 regras de entrada, uma para cada porta que estou usando(8000 e 8501). Ambas as regras são do tipo TCP customizada com qualquer local ipv4. Finalizado isto rodei os seguintes comandos no seu terminal:
